@@ -1,1 +1,20 @@
-<h1>Made it Table page</h1>
+<h1>Welcome to the Restaurant</h1>
+
+<h2>Which Table Would you like?<h2>
+
+<% @tables.each do |table| %>
+  <h4>Table Number: <a href="/tables/<%= table.id %>"><%= table.table_number %></a></h4>
+  <p>Number of People at Table: <%= table.head_count %></p>
+
+<% end %>
+
+orrrrr
+
+<br>
+
+<form action="/newtable" method="POST">
+  <input type="table_number" name="table_number" placeholder="Table Number:"><br><br>
+  <input type="integer" name="head_count" placeholder="Number in party:"><br><br>
+  <input id="hidden" type="hidden" name="user_id" value="<%= current_user.id %>">
+  <input type="submit" value="Create Table"><br>
+</form>

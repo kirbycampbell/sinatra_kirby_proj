@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(version: 20181019020204) do
     t.integer "table_id"
   end
 
+  create_table "tables", force: :cascade do |t|
+    t.integer "table_number"
+    t.integer "head_count"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "dob"

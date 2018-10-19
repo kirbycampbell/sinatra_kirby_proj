@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Table < ActiveRecord::Base
   has_many :users
 
 
