@@ -13,23 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20181019020204) do
 
-  create_table "meals", force: :cascade do |t|
-    t.string  "dish_name"
-    t.string  "cook_time"
-    t.integer "price"
-    t.boolean "available?"
-    t.integer "table_id"
-  end
-
   create_table "tables", force: :cascade do |t|
     t.integer "table_number"
-    t.integer "head_count"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "dob"
-    t.string "password_digest"
+    t.string  "name"
+    t.string  "dob"
+    t.string  "password_digest"
+    t.integer "table_id"
   end
 
 end

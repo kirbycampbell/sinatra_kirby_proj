@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  has_secure_password
   belongs_to :table
 
+
+  has_secure_password
 
   def slug
     username.downcase.gsub(" ","-")
