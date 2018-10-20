@@ -10,7 +10,9 @@ class TablesController < ApplicationController
 
   get '/tables/:id' do
   if logged_in?
-    @table = Table.find_by_id(params[:id])
+    @user = current_user
+    #binding.pry
+    @table = Table.find(current_user.table.id)
     erb :'/tables/show_table'
   else
     redirect '/login'
@@ -19,11 +21,15 @@ end
 
 
   post '/newtable' do
-    @table = Table.create(:table_number => params[:table_number], :head_count => params[:head_count])
+    @table = Table.create(:table_number => params[:table_number])
+    @user = current_user
 
     if @table.save
-      session[:user_table] = @table.id
-      redirect "/tables"
+      @user.table = @table
+      @user.save
+      @table.save
+      redirect "/tables/show_table"
+
     else
        redirect "/tables"
      end

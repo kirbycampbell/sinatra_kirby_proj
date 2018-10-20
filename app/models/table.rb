@@ -3,3 +3,5 @@ class Table < ActiveRecord::Base
 
 
 end
+#>> u.table = t
+#=>     #<Table id: 1, table_number: 49>
