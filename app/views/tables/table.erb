@@ -2,6 +2,7 @@
 
 <h2>Which Table Would you like?<h2>
 
+<p> <a href="/logout">Log Out</a></p>
 <% @tables.each do |table| %>
   <h4>Table Number: <a href="/tables/<%= table.id %>"><%= table.table_number %></a></h4>
 
@@ -9,6 +10,10 @@
   <%  table.users.each do |user| %>
   <%= user.name %> </p>
   <% end %>
+  <form method="post" action="/tables/<%=table.id%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Table">
+  </form>
 
 <% end %>
 
