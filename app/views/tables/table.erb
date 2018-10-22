@@ -1,12 +1,12 @@
-<h1>Welcome to the Restaurant</h1>
+<h1>Hello <%= current_user.name %>!</h1>
 
-<h2>Which Table Would you like?<h2>
+<h2>Create a table or edit a table!<h2>
 
 <p> <a href="/logout">Log Out</a></p>
 <% @tables.each do |table| %>
   <h4>Table Number: <a href="/tables/<%= table.id %>"><%= table.table_number %></a></h4>
 
-  <p>Guests at this table:
+  <p>Managing this Table:
   <%  table.users.each do |user| %>
   <%= user.name %> </p>
   <% end %>
@@ -16,13 +16,3 @@
   </form>
 
 <% end %>
-
-orrrrr
-
-<br>
-
-<form action="/newtable" method="POST">
-  <input type="table_number" name="table_number" placeholder="Table Number:"><br><br>
-  <input id="hidden" type="hidden" name="user_id" value="<%= current_user.id %>">
-  <input type="submit" value="Create Table"><br>
-</form>

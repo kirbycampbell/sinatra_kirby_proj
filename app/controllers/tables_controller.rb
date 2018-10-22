@@ -21,6 +21,40 @@ class TablesController < ApplicationController
   end
 end
 
+get '/tables/:id/edit' do
+  if logged_in?
+    @table = Table.find_by_id(params[:id])
+    if @table && current_user.table == @table
+      erb :'tables/edit_table'
+    else
+      redirect to '/tables'
+    end
+  else
+    redirect to '/login'
+  end
+end
+
+patch '/tables/:id' do
+  if logged_in?
+    if params[:content] == ""
+      redirect to "/tables/#{params[:id]}/edit"
+    else
+      @table = Table.find_by_id(params[:id])
+      if @table && current_user.table == @table
+        if @table.update(content: params[:content])
+          redirect to "/tables/#{@table.id}"
+        else
+          redirect to "/tables/#{@table.id}/edit"
+        end
+      else
+        redirect to '/tables'
+      end
+    end
+  else
+    redirect to '/login'
+  end
+end
+
 
   post '/newtable' do
     @table = Table.find_or_create_by(:table_number => params[:table_number])

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  belongs_to :table
+  has_many :table
 
 
   has_secure_password

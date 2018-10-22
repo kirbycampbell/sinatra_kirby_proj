@@ -1,0 +1,9 @@
+<h1>Make a new Table</h1>
+<form action="/newtable" method="POST">
+  <input type="integer" name="table_number" placeholder="Table Number:"><br><br>
+  <input type="integer" name="head_count" placeholder="Head Count Number:"><br><br>
+  <input type="text_field" name="waiter_name" placeholder="Waiter Name:"><br><br>
+
+  <input id="hidden" type="hidden" name="user_id" value="<%= current_user.id %>">
+  <input type="submit" value="Create Table"><br>
+</form>

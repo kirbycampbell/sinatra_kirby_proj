@@ -1,0 +1,7 @@
+<h1> Edit Table Info </h1>
+
+<form method="post" action="/tables/<%=@table.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <input type="integer" name="content" value="<%= @table.table_number %>">
+  <input type="submit" value="submit">
+</form>
