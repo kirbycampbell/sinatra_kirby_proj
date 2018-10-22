@@ -4,7 +4,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer :table_number
       t.integer :head_count
       t.string :waiter_name
-
+      t.integer :user_id
     end
   end
 end

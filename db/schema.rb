@@ -17,13 +17,13 @@ ActiveRecord::Schema.define(version: 20181019020204) do
     t.integer "table_number"
     t.integer "head_count"
     t.string  "waiter_name"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.string  "dob"
-    t.string  "password_digest"
-    t.integer "table_id"
+    t.string "name"
+    t.string "dob"
+    t.string "password_digest"
   end
 
 end

@@ -2,6 +2,9 @@
 
 <form method="post" action="/tables/<%=@table.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
-  <input type="integer" name="content" value="<%= @table.table_number %>">
+  Table Number: <input type="integer" name="table_number" value="<%= @table.table_number %>"><br><br>
+  Table Head Count: <input type="integer" name="head_count" value="<%= @table.head_count %>"><br><br>
+  Waiter Name: <input type="text_field" name="waiter_name" value="<%= @table.waiter_name %>"><br><br>
+
   <input type="submit" value="submit">
 </form>

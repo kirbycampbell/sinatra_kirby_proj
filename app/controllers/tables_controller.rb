@@ -3,17 +3,26 @@ require './config/environment'
 class TablesController < ApplicationController
 
   get '/tables' do
-    @tables = Table.all
+    if logged_in?
+      @tables = Table.all
 
-    erb :'/tables/table'
+      erb :'/tables/table'
+    else
+      redirect to '/login'
+    end
   end
+
+  get '/tables/new' do
+  if logged_in?
+    erb :'/tables/create_table'
+  else
+    redirect '/login'
+  end
+end
 
   get '/tables/:id' do
   if logged_in?
-    @user = current_user
-    #binding.pry
-    # Use Below code for connecting table to a user
-    #@table = Table.find(current_user.table.id)
+
     @table = Table.find_by_id(params[:id])
     erb :'/tables/show_table'
   else
@@ -24,7 +33,7 @@ end
 get '/tables/:id/edit' do
   if logged_in?
     @table = Table.find_by_id(params[:id])
-    if @table && current_user.table == @table
+    if @table && @table.user_id == current_user.id
       erb :'tables/edit_table'
     else
       redirect to '/tables'
@@ -40,8 +49,8 @@ patch '/tables/:id' do
       redirect to "/tables/#{params[:id]}/edit"
     else
       @table = Table.find_by_id(params[:id])
-      if @table && current_user.table == @table
-        if @table.update(content: params[:content])
+      if @table && @table.user_id == current_user.id
+        if @table.update(:table_number => params[:table_number], :head_count => params[:head_count], :waiter_name => params[:waiter_name])
           redirect to "/tables/#{@table.id}"
         else
           redirect to "/tables/#{@table.id}/edit"
@@ -57,24 +66,27 @@ end
 
 
   post '/newtable' do
-    @table = Table.find_or_create_by(:table_number => params[:table_number])
-    @user = current_user
-
-    if @table.save
-      @user.table = @table
-      @user.save
-      @table.save
-      redirect "/tables"
-    else
-       redirect "/tables"
-     end
+    if logged_in?
+      @table = Table.find_or_create_by(:table_number => params[:table_number], :head_count => params[:head_count], :waiter_name => params[:waiter_name])
+      if @table.save
+        @table.user_id = current_user.id
+        @table.save
+        redirect "/tables/#{@table.id}"
+      else
+         redirect "/tables"
+       end
+     else
+     redirect '/login'
+   end
   end
 
   delete '/tables/:id/delete' do
   if logged_in?
     @table = Table.find_by_id(params[:id])
-    if @table
+    if @table && @table.user_id == current_user.id
       @table.delete
+    else
+      redirect to '/tables'
     end
     redirect to '/tables'
   else

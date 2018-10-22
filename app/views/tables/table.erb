@@ -1,18 +1,17 @@
 <h1>Hello <%= current_user.name %>!</h1>
 
 <h2>Create a table or edit a table!<h2>
+  <a href="/tables/new">Make new Table!</a>
 
-<p> <a href="/logout">Log Out</a></p>
 <% @tables.each do |table| %>
+<% @user = User.find(table.user_id) %>
   <h4>Table Number: <a href="/tables/<%= table.id %>"><%= table.table_number %></a></h4>
-
-  <p>Managing this Table:
-  <%  table.users.each do |user| %>
-  <%= user.name %> </p>
-  <% end %>
+  <h5>Table Managed By: <%= @user.name if table.user_id == @user.id%></h5>
   <form method="post" action="/tables/<%=table.id%>/delete">
     <input id="hidden" type="hidden" name="_method" value="DELETE">
     <input type="submit" value="Delete Table">
   </form>
 
 <% end %>
+
+<p> <a href="/logout">Log Out</a></p>

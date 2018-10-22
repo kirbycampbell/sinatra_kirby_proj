@@ -1,4 +1,8 @@
 <h1>Welcome to table: #<%= @table.table_number %></h1>
+<a href="/tables">See all Tables </a><br>
 <a href="/tables/<%=@table.id%>/edit">Edit Table </a>
-<p><%= @table.head_count %></p>
-<p><%= @table.waiter_name %></p>
+<form method="post" action="/tables/<%=@table.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Table"></form>
+<p>Head Count: <%= @table.head_count %></p>
+<p>Water Name: <%= @table.waiter_name %></p>
